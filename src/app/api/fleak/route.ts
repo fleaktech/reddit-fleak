@@ -1,4 +1,13 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
+
+const getEnvVar = (name: string): string => {
+  const value = process.env[name];
+
+  if (typeof value === "undefined") {
+    throw new Error(`${name} environment variable is not set`);
+  }
+  return value;
+};
 
 const getRedditAccessToken = async () =>
   fetch("https://www.reddit.com/api/v1/access_token", {
@@ -7,14 +16,16 @@ const getRedditAccessToken = async () =>
       Authorization:
         "Basic " +
         btoa(
-          process.env.REDDIT_CLIENT_ID + ":" + process.env.REDDIT_CLIENT_SECRET,
+          getEnvVar("REDDIT_CLIENT_ID") +
+            ":" +
+            getEnvVar("REDDIT_CLIENT_SECRET"),
         ),
       "Content-Type": "application/x-www-form-urlencoded",
     },
     body: "grant_type=client_credentials",
   }).then((resp) => resp.json());
 
-export async function POST(request) {
+export async function POST(request: NextRequest) {
   const { username } = await request.json();
   const { access_token } = await getRedditAccessToken();
   if (!username) {
@@ -25,10 +36,10 @@ export async function POST(request) {
   }
 
   try {
-    const response = await fetch(process.env.FLEAK_ENDPOINT, {
+    const response = await fetch(getEnvVar("FLEAK_ENDPOINT"), {
       method: "POST",
       headers: {
-        "api-key": process.env.FLEAK_API_KEY,
+        "api-key": getEnvVar("FLEAK_API_KEY"),
         "Content-Type": "application/json",
       },
       body: JSON.stringify([{ username, redditAccessToken: access_token }]),

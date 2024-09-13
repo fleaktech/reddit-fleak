@@ -6,7 +6,11 @@ import { LoadingLogo } from "./components/LoadingLogo";
 import { remark } from "remark";
 import html from "remark-html";
 
-const ProfileSummary = ({ data }) => {
+interface ProfileSummaryProps {
+  data?: { outputEvents?: Array<{ profile?: string }> };
+}
+
+const ProfileSummary = ({ data }: ProfileSummaryProps) => {
   const profile = data?.outputEvents?.at(0)?.profile;
   const [markdown, setMarkdown] = useState("");
   useEffect(() => {
@@ -19,7 +23,11 @@ const ProfileSummary = ({ data }) => {
   return <div dangerouslySetInnerHTML={{ __html: markdown }} />;
 };
 
-const Response = (props) => {
+interface ResponseProps extends ProfileSummaryProps {
+  status?: string;
+}
+
+const Response = (props: ResponseProps) => {
   const { status } = props;
 
   switch (status) {
