@@ -20,7 +20,11 @@ const ProfileSummary = ({ data }: ProfileSummaryProps) => {
       .process(profile)
       .then((m) => setMarkdown(m.toString()));
   }, [profile]);
-  return <div dangerouslySetInnerHTML={{ __html: markdown }} />;
+  if (profile) {
+    return <div dangerouslySetInnerHTML={{ __html: markdown }} />;
+  } else {
+    return <div>Something did not work. 😅 Please try again. </div>;
+  }
 };
 
 interface ResponseProps extends ProfileSummaryProps {
