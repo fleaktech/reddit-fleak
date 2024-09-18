@@ -3,40 +3,45 @@ import { FleakForm } from "./fleakForm";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+    <div className="grid grid-rows-[13rem_1fr_60px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+      <div className="space-y-2">
+        <div className="text-5xl flex flex-col items-center">
+          <div className="flex items-start">
+            Discover your
+            <Image
+              src="/reddit-logo.svg"
+              alt="Reddit Logo"
+              className="mx-2"
+              width={56}
+              height={56}
+            />
+          </div>
+          reddit personality
+        </div>
+        <p className="flex justify-center items-center text-center">
+          Type in reddit username that you are curious about. <br />
+          See how others see you <br /> or get a glance of someone else&apos;s
+          <br />
+          reddit personality.
+        </p>
+      </div>
+
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <FleakForm />
       </main>
-      <footer className="row-start-3 space-y-2">
-        <div className="flex items-center gap-2">
-          Made with{" "}
-          <a href="https://nextjs.org/" target="_blank">
-            <div>
-              <Image
-                className="dark:invert"
-                src="https://nextjs.org/icons/next.svg"
-                alt="Next.js logo"
-                width={50}
-                height={38}
-                priority
-              />
-            </div>
-          </a>
-          and ❤️
-        </div>
-        <div className="flex gap-2 items-center justify-center">
-          by{" "}
-          <a className="" href="https://fleak.ai" target="_blank">
-            <Image
-              src="/fleak-logo-title.svg"
-              alt="Fleak Logo"
-              className="bg-violet-500 rounded-md shadow-xl"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
+      <footer className="flex row-start-3 space-x-1 border-surface-300 border p-4 rounded-md shadow-md">
+        <div>Built with ❤️</div>
+        <a className="flex" href="https://fleak.ai" target="_blank">
+          using{" "}
+          <Image
+            src="/fleak-logo-title.svg"
+            alt="Fleak Logo"
+            className="ml-2"
+            width={60}
+            height={12}
+            priority
+          />
+        </a>
       </footer>
     </div>
   );
