@@ -1,5 +1,4 @@
 import { NextResponse, NextRequest } from "next/server";
-import { getRedditAccessToken } from "./redditApi";
 import { getEnvVar } from "./envVars";
 
 export async function POST(request: NextRequest) {
@@ -10,7 +9,6 @@ export async function POST(request: NextRequest) {
       { status: 400 },
     );
   }
-  const redditAccessToken = await getRedditAccessToken();
 
   try {
     const response = await fetch(getEnvVar("FLEAK_ENDPOINT"), {
@@ -19,7 +17,7 @@ export async function POST(request: NextRequest) {
         "api-key": getEnvVar("FLEAK_API_KEY"),
         "Content-Type": "application/json",
       },
-      body: JSON.stringify([{ username, redditAccessToken }]),
+      body: JSON.stringify([{ username }]),
     });
     const data = await response.json();
     return NextResponse.json(data);

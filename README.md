@@ -7,12 +7,10 @@ Before you start you need to :
 - Sign up at https://app.fleak.ai/
 - Create Fleak API key https://app.fleak.ai/settings/api-keys (to get `FLEAK_API_KEY`)
 - Create Fleak workflow (to get `FLEAK_ENDPOINT`)
-- Create Reddit API client (web app type) https://www.reddit.com/prefs/apps (to get `REDDIT_CLIENT_ID` and `REDDIT_CLIENT_SECRET`)
 
 And then:
 - run `cp .env.local.template .env.local`
-- edit `.env.local` and set values for `FLEAK_API_KEY`, `FLEAK_ENDPOINT`, `REDDIT_CLIENT_ID` and `REDDIT_CLIENT_SECRET`
-
+- edit `.env.local` and set values for `FLEAK_API_KEY`, `FLEAK_ENDPOINT`
 
 ## Getting Started
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
