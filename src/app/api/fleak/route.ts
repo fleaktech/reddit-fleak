@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
       { status: 400 },
     );
   }
-
+  console.log("requested username: ", username);
   try {
     const response = await fetch(getEnvVar("FLEAK_ENDPOINT"), {
       method: "POST",
