@@ -1,30 +1,33 @@
 import { NextResponse, NextRequest } from "next/server";
 import { getEnvVar } from "./envVars";
+import { z } from "zod";
+
+const FormSchema = z.object({
+  username: z.string().trim().min(1).max(200),
+});
 
 export async function POST(request: NextRequest) {
-  const { username } = await request.json();
-  if (!username) {
+  const form = await request.json();
+  console.log(form);
+  const { data, success, error } = FormSchema.safeParse(form);
+  if (!success && error) {
     return NextResponse.json(
-      { error: "Username is required" },
+      { errors: error?.errors?.flatMap(({ message }) => message) },
       { status: 400 },
     );
   }
+  const { username } = data;
   console.log("requested username: ", username);
-  try {
-    const response = await fetch(getEnvVar("FLEAK_ENDPOINT"), {
+  const response = await fetch(
+    `${getEnvVar("FLEAK_ENDPOINT")}?includeErrorByStep=true`,
+    {
       method: "POST",
       headers: {
         "api-key": getEnvVar("FLEAK_API_KEY"),
         "Content-Type": "application/json",
       },
       body: JSON.stringify([{ username }]),
-    });
-    const data = await response.json();
-    return NextResponse.json(data);
-  } catch (error) {
-    return NextResponse.json(
-      { error: "Failed to fetch data" },
-      { status: 500 },
-    );
-  }
+    },
+  );
+  return NextResponse.json(await response.json());
 }
