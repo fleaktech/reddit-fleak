@@ -35,12 +35,12 @@ const ProfileSummary = ({ data }: ProfileSummaryProps) => {
       .then((m) => setMarkdown(m.toString()));
   }, [profile]);
   if (profile) {
-  return (
-    <div
-      className="bg-gray-200 p-8 rounded-2xl text-black"
-      dangerouslySetInnerHTML={{ __html: markdown }}
-    />
-  );
+    return (
+      <div
+        className="bg-gray-200 p-8 rounded-2xl text-black"
+        dangerouslySetInnerHTML={{ __html: markdown }}
+      />
+    );
   } else {
     return <div>Something did not work. 😅 Please try again. </div>;
   }
@@ -72,11 +72,13 @@ const MAX_RETRIES = 3;
 export const FleakForm = () => {
   const [username, setUsername] = useState("");
   const [response, setResponse] = useState({});
+  const [buttonDisabled, setButtonDisabled] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
   const [retryNumber, setRetryNumber] = useState(0);
   const hasErrors = errors.length !== 0;
 
   const onSubmit = () => {
+    setButtonDisabled(true);
     setResponse({ status: "pending" });
     fetch("/api/fleak", {
       method: "POST",
@@ -87,6 +89,7 @@ export const FleakForm = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        setButtonDisabled(false);
         if (data?.errors) {
           setResponse({});
           setErrors(data.errors);
@@ -123,6 +126,7 @@ export const FleakForm = () => {
             placeholder="Enter reddit username"
             value={username}
             onChange={(e) => {
+              setButtonDisabled(false);
               if (errors) {
                 setErrors([]);
               }
@@ -138,10 +142,11 @@ export const FleakForm = () => {
           )}
         </div>
         <button
+          disabled={buttonDisabled}
           className="bg-[#FF4500] flex grow justify-center w-32 h-11 rounded-full	text-white font-bold items-center px-2"
           onClick={onSubmit}
         >
-          Discover
+          {buttonDisabled ? <LoadingLogo /> : "Discover"}
         </button>
       </form>
       <div className="flex items-center justify-center p-4 max-w-[60ch]">
