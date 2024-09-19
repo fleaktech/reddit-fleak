@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { LoadingLogo } from "./components/LoadingLogo";
 import { remark } from "remark";
 import html from "remark-html";
@@ -37,7 +38,7 @@ const ProfileSummary = ({ data }: ProfileSummaryProps) => {
   if (profile) {
     return (
       <div
-        className="bg-gray-200 p-8 rounded-2xl text-black"
+        className="bg-[#E5EBEE] p-8 py-16 rounded-2xl text-black"
         dangerouslySetInnerHTML={{ __html: markdown }}
       />
     );
@@ -80,6 +81,7 @@ export const FleakForm = () => {
   const onSubmit = () => {
     setButtonDisabled(true);
     setResponse({ status: "pending" });
+    setErrors([]);
     fetch("/api/fleak", {
       method: "POST",
       headers: {
@@ -121,14 +123,14 @@ export const FleakForm = () => {
   };
 
   return (
-    <div>
+    <>
       <form
-        className=" p-10 rounded-md flex flex-wrap"
+        className="rounded-md flex gap-8"
         onSubmit={(e) => e.preventDefault()}
       >
-        <div>
+        <div className="">
           <input
-            className={`text-black bg-gray-200 rounded-full p-2 px-4 mr-2 mb-2 grow-[2]
+            className={`text-black bg-[#E5EBEE] rounded-full p-2 px-4 min-w-32 h-11 grow-[2]
               ${hasErrors ? "border-red-700 border-2" : ""}`}
             placeholder="Enter reddit username"
             value={username}
@@ -150,15 +152,26 @@ export const FleakForm = () => {
         </div>
         <button
           disabled={buttonDisabled}
-          className="bg-[#FF4500] flex grow justify-center w-32 h-11 rounded-full	text-white font-bold items-center px-2"
+          className="bg-[#FF4500] flex grow justify-center w-40 pl-4 h-11 gap-x-2 rounded-full	text-white font-bold items-center px-2"
           onClick={onSubmit}
         >
-          {buttonDisabled ? <LoadingLogo /> : "Discover"}
+          Discover{" "}
+          {buttonDisabled ? (
+            <Image
+              src="/spinner.svg"
+              alt="spinner"
+              className="spinner"
+              width={20}
+              height={20}
+            />
+          ) : (
+            <div className="size-5"></div>
+          )}
         </button>
       </form>
-      <div className="flex items-center justify-center p-4 max-w-[60ch]">
+      <div className="flex grow items-center justify-center p-4 max-w-[60ch]">
         <Response {...response} />
       </div>
-    </div>
+    </>
   );
 };
