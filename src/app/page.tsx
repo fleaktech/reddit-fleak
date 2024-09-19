@@ -27,7 +27,7 @@ export default function Home() {
       <a
         href="https://fleak.ai"
         target="_blank"
-        className="flex row-start-3 space-x-1 text-xs border-surface-300 border py-2.5 px-4 rounded-md shadow-md"
+        className="flex row-start-3 space-x-1 text-xs dark:text-black dark:bg-gray-400 border dark:border-0 py-2.5 px-4 rounded-md shadow-md"
       >
         Built with ❤️ using{" "}
         <Image

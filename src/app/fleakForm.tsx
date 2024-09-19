@@ -38,7 +38,7 @@ const ProfileSummary = ({ data }: ProfileSummaryProps) => {
   if (profile) {
     return (
       <div
-        className="bg-[#E5EBEE] p-8 py-16 rounded-2xl text-black"
+        className="bg-[#E5EBEE] dark:bg-gray-400 p-8 py-16 rounded-2xl text-black"
         dangerouslySetInnerHTML={{ __html: markdown }}
       />
     );
