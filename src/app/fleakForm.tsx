@@ -125,7 +125,7 @@ export const FleakForm = () => {
   return (
     <>
       <form
-        className="rounded-md flex gap-8"
+        className="rounded-md flex flex-wrap max-sm:gap-4 sm:gap-8"
         onSubmit={(e) => e.preventDefault()}
       >
         <div className="">
@@ -152,7 +152,7 @@ export const FleakForm = () => {
         </div>
         <button
           disabled={buttonDisabled}
-          className="bg-[#FF4500] flex grow justify-center w-40 pl-4 h-11 gap-x-2 rounded-full	text-white font-bold items-center px-2"
+          className="bg-[#FF4500] flex justify-center w-40 pl-4 h-11 gap-x-2 rounded-full	text-white font-bold items-center px-2"
           onClick={onSubmit}
         >
           Discover{" "}
