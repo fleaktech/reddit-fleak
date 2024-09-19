@@ -7,9 +7,7 @@ const FormSchema = z.object({
 });
 
 export async function POST(request: NextRequest) {
-  const form = await request.json();
-  console.log(form);
-  const { data, success, error } = FormSchema.safeParse(form);
+  const { data, success, error } = FormSchema.safeParse(await request.json());
   if (!success && error) {
     return NextResponse.json(
       { errors: error?.errors?.flatMap(({ message }) => message) },
