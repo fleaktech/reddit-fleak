@@ -90,9 +90,9 @@ export const FleakForm = () => {
       body: JSON.stringify({ username }),
     })
       .then((res) => {
-        if (res.ok) {
+        try {
           return res.json();
-        } else {
+        } catch {
           return { errors: ["Something did not work. 😅 Please try again."] };
         }
       })
