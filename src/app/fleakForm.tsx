@@ -42,7 +42,7 @@ const ProfileSummary = ({ data }: ProfileSummaryProps) => {
       />
     );
   } else {
-    return <div>Something did not work. 😅 Please try again. </div>;
+    return <div>Something did not work. 😅 Please try again.</div>;
   }
 };
 
@@ -87,7 +87,13 @@ export const FleakForm = () => {
       },
       body: JSON.stringify({ username }),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return { errors: ["Something did not work. 😅 Please try again."] };
+        }
+      })
       .then((data) => {
         setButtonDisabled(false);
         if (data?.errors) {
