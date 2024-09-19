@@ -67,10 +67,13 @@ const Response = (props: ResponseProps) => {
   }
 };
 
+const MAX_RETRIES = 3;
+
 export const FleakForm = () => {
   const [username, setUsername] = useState("");
   const [response, setResponse] = useState({});
   const [errors, setErrors] = useState<string[]>([]);
+  const [retryNumber, setRetryNumber] = useState(0);
   const hasErrors = errors.length !== 0;
 
   const onSubmit = () => {
@@ -91,6 +94,13 @@ export const FleakForm = () => {
         }
         const errors = parseWorkflowErrors(data);
         if (errors.length !== 0) {
+          if (retryNumber < MAX_RETRIES && errors.includes("Request blocked")) {
+            setRetryNumber(retryNumber + 1);
+            console.log("Request blocked. Retrying...");
+            onSubmit();
+            return;
+          }
+
           setResponse({});
           setErrors(errors);
           return;
