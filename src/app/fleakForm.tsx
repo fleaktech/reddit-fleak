@@ -71,6 +71,22 @@ const Response = (props: ResponseProps) => {
 const MAX_RETRIES = 3;
 let retryNumber = 0;
 
+const retry = ({
+  onRetry,
+  onGiveUp,
+}: {
+  onRetry: () => void;
+  onGiveUp: () => void;
+}) => {
+  if (retryNumber < MAX_RETRIES) {
+    retryNumber = retryNumber + 1;
+    console.log("Retrying...");
+    onRetry();
+  } else {
+    onGiveUp();
+  }
+};
+
 export const FleakForm = () => {
   const [username, setUsername] = useState("");
   const [response, setResponse] = useState({});
@@ -99,19 +115,28 @@ export const FleakForm = () => {
       .then((data) => {
         setButtonDisabled(false);
         if (data?.errors) {
+          if (data.errors.includes("Workflow failed")) {
+            retry({
+              onRetry: onSubmit,
+              onGiveUp: () =>
+                setErrors(["Something did not work. 😅 Please try again."]),
+            });
+            return;
+          }
           setResponse({});
           setErrors(data.errors);
           return;
         }
         const errors = parseWorkflowErrors(data);
         if (errors.length !== 0) {
-          if (retryNumber < MAX_RETRIES && errors.includes("Request blocked")) {
-            retryNumber = retryNumber + 1;
-            console.log("Request blocked. Retrying...");
-            onSubmit();
+          if (errors.includes("Request blocked")) {
+            retry({
+              onRetry: onSubmit,
+              onGiveUp: () =>
+                setErrors(["Something did not work. 😅 Please try again."]),
+            });
             return;
           }
-
           setResponse({});
           setErrors(errors);
           return;

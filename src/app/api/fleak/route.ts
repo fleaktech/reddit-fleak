@@ -27,5 +27,12 @@ export async function POST(request: NextRequest) {
       body: JSON.stringify([{ username }]),
     },
   );
+  const { headers } = response;
+  const contentType = headers.get("content-type");
+  if (!contentType || !contentType.includes("application/json")) {
+    console.error(await response.text());
+    return NextResponse.json({ errors: ["Workflow failed"] }, { status: 500 });
+  }
+
   return NextResponse.json(await response.json());
 }
