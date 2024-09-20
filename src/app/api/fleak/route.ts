@@ -2,6 +2,8 @@ import { NextResponse, NextRequest } from "next/server";
 import { getEnvVar } from "./envVars";
 import { z } from "zod";
 
+export const maxDuration = 300;
+
 const FormSchema = z.object({
   username: z.string().trim().min(1).max(200),
 });
