@@ -21,6 +21,37 @@ const parseWorkflowErrors = ({
     }),
   );
 
+const SocialShareButtons = () => {
+  const url = encodeURIComponent("https://reddit.fleak.ai");
+  const title = encodeURIComponent(
+    "Discover your Reddit personality with Fleak",
+  );
+  return (
+    <div className="flex flex-col items-center mt-8 space-y-3">
+      <div className="text-lg">Share it!</div>
+      <div className="flex gap-6">
+        <a
+          href={`https://old.reddit.com/submit?url=${url}&title=${title}`}
+          target="_blank"
+        >
+          <Image
+            src="/reddit-button.svg"
+            alt="Share on reddit"
+            width={20}
+            height={20}
+          />
+        </a>
+        <a
+          href={`https://x.com/intent/post?text=${title}&url=${url}`}
+          target="_blank"
+        >
+          <Image src="/x-button.svg" alt="Share on x" width={20} height={20} />
+        </a>
+      </div>
+    </div>
+  );
+};
+
 interface ProfileSummaryProps {
   data?: { outputEvents?: Array<{ profile?: string }> };
 }
@@ -37,10 +68,10 @@ const ProfileSummary = ({ data }: ProfileSummaryProps) => {
   }, [profile]);
   if (profile) {
     return (
-      <div
-        className="bg-[#E5EBEE] dark:bg-gray-400 p-8 py-16 rounded-2xl text-black"
-        dangerouslySetInnerHTML={{ __html: markdown }}
-      />
+      <div className="bg-[#E5EBEE] dark:bg-gray-400 p-8 py-16 rounded-2xl text-black">
+        <div dangerouslySetInnerHTML={{ __html: markdown }} />
+        <SocialShareButtons />
+      </div>
     );
   } else {
     return <div>Something did not work. 😅 Please try again.</div>;
