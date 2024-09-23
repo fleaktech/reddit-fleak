@@ -68,7 +68,7 @@ const ProfileSummary = ({ data }: ProfileSummaryProps) => {
   }, [profile]);
   if (profile) {
     return (
-      <div className="bg-[#E5EBEE] dark:bg-gray-400 p-8 py-16 rounded-2xl text-black">
+      <div className="bg-[#E5EBEE] dark:bg-black p-8 py-16 rounded-2xl">
         <div dangerouslySetInnerHTML={{ __html: markdown }} />
         <SocialShareButtons />
       </div>
