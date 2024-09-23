@@ -36,7 +36,7 @@ const SocialShareButtons = () => {
         >
           <Image
             src="/reddit-button.svg"
-            alt="Share on reddit"
+            alt="Share on Reddit"
             width={20}
             height={20}
           />
@@ -45,7 +45,7 @@ const SocialShareButtons = () => {
           href={`https://x.com/intent/post?text=${title}&url=${url}`}
           target="_blank"
         >
-          <Image src="/x-button.svg" alt="Share on x" width={20} height={20} />
+          <Image src="/x-button.svg" alt="Share on X" width={20} height={20} />
         </a>
       </div>
     </div>
@@ -188,7 +188,7 @@ export const FleakForm = () => {
           <input
             className={`text-black bg-[#E5EBEE] rounded-full p-2 px-4 min-w-32 h-11 grow-[2]
               ${hasErrors ? "border-red-700 border-2" : ""}`}
-            placeholder="Enter reddit username"
+            placeholder="Enter Reddit username"
             value={username}
             onChange={(e) => {
               setButtonDisabled(false);

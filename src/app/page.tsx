@@ -16,11 +16,11 @@ export default function Home() {
               height={56}
             />
           </div>
-          reddit personality
+          Reddit personality
         </div>
         <p className="flex justify-center items-center text-center max-w-[60ch]">
-          Type in reddit username that you are curious about. See how others see
-          you or get a glance of someone else&apos;s reddit personality.
+          Type in Reddit username that you are curious about. See how others see
+          you or get a glance of someone else&apos;s Reddit personality.
         </p>
       </div>
       <FleakForm />
