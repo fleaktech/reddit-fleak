@@ -208,7 +208,7 @@ export const FleakForm = () => {
         </div>
         <button
           disabled={buttonDisabled}
-          className="bg-[#FF4500] flex justify-center w-40 pl-4 h-11 gap-x-2 rounded-full	text-white font-bold items-center px-2"
+          className="bg-[#FF4500] flex justify-center w-40 pl-6 h-11 gap-x-2 rounded-full	text-white font-bold items-center"
           onClick={onSubmit}
         >
           Discover{" "}
